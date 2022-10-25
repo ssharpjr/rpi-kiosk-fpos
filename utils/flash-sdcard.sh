@@ -59,19 +59,11 @@ fi
 
 # Bake the pi!
 echo ""
-echo "Filename: $FILENAME"
-echo "will be flashed to"
-echo "Block device: $BLOCK_DEVICE"
-echo "using the command:"
-echo "CMD: $FLASH_CMD"
+echo "$FILENAME will be flashed to $BLOCK_DEVICE using the command:"
+echo "    $FLASH_CMD"
 echo ""
 read -p "Press ENTER to continue or CTRL+C to cancel."
 echo ""
 echo "Baking the Pi!"
-echo "--------------------------------------------------"
+echo "------------------------------------------------------------"
 $FLASH_CMD
-echo "--------------------------------------------------"
-echo ""
-echo "Done (unless there were errors). You can remove the SD Card now."
-echo ""
-exit 0
