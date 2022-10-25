@@ -5,13 +5,18 @@
 # Setup requires making the following changes to the FullPageOS image.
 # - Set hostname in '/etc/hosts' and '/etc/hostname'.
 # - Set the HTTP URL in '/boot/fullpageos.txt'.
+# - Copy Splash file.
+# - Copy scripts folder.
+# - Add Cron jobs.
+# - Install CEC utils.
 # - Delete the '/home/pi/.config/chromium' folder.
-# - Delete the '/boot/setup.txt' file when complete.
+# - Delete the '/boot/LINE.txt' file when complete.
 
 
 # Variables
 FPOS_FILE="/boot/fullpageos.txt"
-CHROMIUM_DIR="/home/pi/.config/chromium"
+CHROMIUM_CONFIG_DIR="/home/pi/.config/chromium"
+CHROMIUM_CACHE_DIR="/home/pi/.cache/chromium"
 LINE_FILE="/boot/LINE.txt"
 LINK_URL="http://10.0.1.89/Pages/Production/DisplayP1BonusNew.aspx?LineNo="
 
@@ -33,6 +38,14 @@ LINK_URL="http://10.0.1.89/Pages/Production/DisplayP1BonusNew.aspx?LineNo="
 
 
 # Functions
+check_root() {
+    if [ $(id -u) -ne 0 ]; then
+        echo "\nInstaller must be run as root."
+        echo "Try 'sudo bash $0'"
+        exit 1
+    fi
+}
+
 set_hostname() {
     echo -e "Setting Hostname\n"
     if [ ${HOSTNAME} != ${NEW_HOSTNAME} ]; then
@@ -48,7 +61,13 @@ set_hostname() {
     fi
 }
 
+#############################
 # RUN
+#############################
+check_root
+
+echo "\nFullPageOS Kiosk Setup Script\n"
+
 # If Setup file exists, run this script
 if [ -f "$LINE_FILE" ]; then
     # Get Line details from LINE_FILE
@@ -67,15 +86,31 @@ if [ -f "$LINE_FILE" ]; then
     
     # Clear Chromium settings
     if [ -d "$CHROMIUM_DIR" ]; then
-        echo "Deleting $CHROMIUM_DIR"
-        rm -rf $CHROMIUM_DIR
+        echo "Deleting Chromium files"
+        rm -rf $CHROMIUM_CONFIG_DIR
+        rm -rf $CHROMIUM_CACHE_DIR
+    fi
+
+    # Copy Splash file (assumes 'splash.png' is in the same folder as this script)
+    if [ -f "splash.png" ]; then
+        echo "Copying Splash file"
+        cp -rf splash.png /boot/splash.png
     fi
 
     # Set hostname
     echo "Setting hostname"
     set_hostname
 
+    # Delete LINE.txt file
+    echo "Cleaning up files"
+    if [ -f "$LINE_FILE" ]; then
+        rm -rf $LINE_FILE
+    fi
+
     # Complete
     echo "Done. Reboot RPI to start kiosk."
     echo "NOTE: RPI may reboot a couple times to complete the setup."
+
+else
+    echo "Setup not needed. Continuing."
 fi
