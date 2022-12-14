@@ -55,30 +55,30 @@ fi
 boot_sector=$(($sector * $boot_start))
 root_sector=$(($sector * $root_start))
 
-echo ""
-echo "      Sector Size: $sector"
-echo "       Boot Start: $boot_start"
-echo "       Root Start: $root_start"
-echo "Boot Start Sector: $boot_sector"
-echo "Root Start Sector: $root_sector"
+# echo ""
+# echo "      Sector Size: $sector"
+# echo "       Boot Start: $boot_start"
+# echo "       Root Start: $root_start"
+# echo "Boot Start Sector: $boot_sector"
+# echo "Root Start Sector: $root_sector"
 
 # Mount image partitions
 if [[ "$2" == "boot" ]]; then
   umount $boot_dir 2&>1 > /dev/null
   mount -o loop,offset=$boot_sector $1 $boot_dir
-  echo ""
+  # echo ""
   echo "$1 BOOT is mounted at $boot_dir"
   echo "Type 'sudo umount $boot_dir' to unmount it"
-  echo ""
+  # echo ""
 fi
 
 
 if [[ "$2" == "root" ]]; then
   umount $root_dir 2&>1 > /dev/null
   mount -o loop,offset=$root_sector $1 $root_dir
-  echo ""
+  # echo ""
   echo "$1 ROOT is mounted at $root_dir"
   echo "Type 'sudo umount $root_dir' to unmount it"
-  echo ""
+  # echo ""
 fi
 

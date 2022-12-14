@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]; then
     echo ""
     echo "Must be run as root!"
     echo ""
-    exit 0
+    exit 1
 fi
 
 # Welcome
@@ -49,19 +49,13 @@ PV="/usr/bin/pv"
 FILE_TYPE=$(file -b $FILENAME | awk -F " " '{print $1}')
 if [[ "$FILE_TYPE" == "Zip" ]]; then
     # It's a ZIP file
-    # echo "ZIP file detected"
-    if [[ -f "$PV" ]]; then
-    FLASH_CMD="zip -p $FILENAME | pv -petbars $FILE_SIZE | sudo dd of=$BLOCKDEVICE bs=4M"
-    else
-    FLASH_CMD="zip -p $FILENAME | sudo dd of=$BLOCKDEVICE bs=4M status=progress"
-    fi
-    
+    echo "ZIP file detected"
+    FLASH_CMD="unzip -p $FILENAME | sudo dd of=$BLOCK_DEVICE bs=4M status=progress"
 elif [[ "$FILE_TYPE" == "DOS/MBR" ]]; then
     # It's a bootable image
-    # echo "Bootable image detected"
+    echo "Bootable image detected"
     if [[ -f "$PV" ]]; then
         FLASH_CMD="dd if=$FILENAME | pv -petbars $FILE_SIZE | dd bs=4M of=$BLOCK_DEVICE"
-        # FLASH_CMD="dd if=$FILENAME of=$BLOCK_DEVICE bs=4M"
     else
         FLASH_CMD="sudo dd if=$FILENAME of=$BLOCK_DEVICE bs=4M status=progress"
     fi
