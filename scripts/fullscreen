@@ -1,0 +1,7 @@
+#!/bin/bash
+export DISPLAY=:0
+WID=$(xdotool search --onlyvisible --class chromium|head -1)
+xdotool windowactivate ${WID}
+xdotool key F11
+xdotool mousemove 9000 9000
+xdotool key ctrl+0
