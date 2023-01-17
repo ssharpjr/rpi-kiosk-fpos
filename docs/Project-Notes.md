@@ -28,3 +28,8 @@ Exec=/home/pi/scripts/start_gui
 Comment=Startup of the minimal GUI
 Type=Application
 ```
+
+Edit ```/boot/check_for_httpd```
+```bash
+enabled
+```
