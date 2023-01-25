@@ -25,6 +25,12 @@ Edit ```/usr/share/xsessions/guisession.desktop```
 Version=1.0
 Name=GUISession
 Exec=/home/pi/scripts/start_gui
-Comment=Startup of the minimal GUI
+Comment=Minimal GUI Startup
 Type=Application
 ```
+
+<br>
+
+### Files and Scripts needed
+These files and scripts are needed to run this system
+- /boot/fullpageos.txt - Put the URL to display in this file.
