@@ -29,6 +29,16 @@ Comment=Minimal GUI Startup
 Type=Application
 ```
 
+Edit ```/boot/check_for_httpd```
+```bash
+enabled
+```
+
+Edit ```/boot/check_for_httpd```
+```bash
+enabled
+```
+
 <br>
 
 ### Files and Scripts needed
