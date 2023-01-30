@@ -58,3 +58,10 @@ ExecStart=
 ExecStart=-/sbin/agetty --noissue --autologin myusername %I $TERM
 Type=idle
 ```
+
+
+### X11VNC Setup
+Install ```x11vnc```
+```bash
+sudo apt install x11vnc -y
+```
