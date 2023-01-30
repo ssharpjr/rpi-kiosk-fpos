@@ -9,7 +9,7 @@ Debian Bullseye minimal install
 
 Packages to install (*currently not using ```compton```*)
 ```bash
-sudo apt install xserver-xorg x11-utils xdotool lightdm matchbox-window-manager compton chromium chromium-l10n
+sudo apt install xserver-xorg x11-xserver-utils xdotool lightdm matchbox-window-manager compton chromium chromium-l10n
 ```
 
 
