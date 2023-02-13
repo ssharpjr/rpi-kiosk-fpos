@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Refresh the current Chromium page
+
+export DISPLAY=:0
+WID=$(xdotool search --onlyvisible --class "Chromium")
+xdotool windowactivate ${WID}
+sleep 0.1
+xdotool key F5
+xdotool key ctrl+0

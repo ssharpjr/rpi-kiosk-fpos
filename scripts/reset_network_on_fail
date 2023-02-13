@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+## Reconnect or reboot on network failure
+#
+
+# IP_ADDR=$(hostname -I)
+SSID="AmcorDevices"
+
+
+check_root() {
+  if [ $(id -u 0) -ne 0 ]; then
+    echo "\nMust be run as root."
+    exit 1
+  fi
+}
+
+
+reconnect_wifi() {
+  echo "Reconnecting Wi-Fi"
+  nmcli connection up ${SSID}
+}
+
+restart_networking() {
+  echo "Restarting Networking Service"
+  systemctl restart networking
+}
+
+
+
+# Run
+check_root
+
+# Check for and IP address with increasing solutions.
+IP_ADDR=$(hostname -I)
+if [[ -z "$IP_ADDR" ]]; then
+  # No IP address detected. Try reconnecting.
+  reconnect_wifi
+else
+  echo ${IP_ADDR}
+  exit 0
+fi
+
+IP_ADDR=$(hostname -I)
+if [[ -z "$IP_ADDR" ]]; then
+  # Still no IP address. Restart networking.
+  restart_networking
+else
+  echo ${IP_ADDR}
+  exit 0
+fi
+
+IP_ADDR=$(hostname -I)
+if [[ -z "$IP_ADDR" ]]; then
+  # Still no IP address. Reboot.
+  echo "Rebooting device"
+  shutdown -r now
+fi

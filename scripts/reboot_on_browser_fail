@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Reboot device if Chromium is not running
+
+status=$(ps aux | grep "chromium" | grep "\-\-app"  | grep -v "grep")
+
+if [[ -z "$status" ]]; then
+  # Chromium is not running
+  sudo shutdown -r now
+  exit 0
+fi
+

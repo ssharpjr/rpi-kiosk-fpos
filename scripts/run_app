@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while true
+do
+  # (sleep 15 ; /home/amctech/scripts/fullscreen) &
+  xdotool mousemove 9000 9000
+  /home/amctech/scripts/start_browser
+  sleep 1
+done

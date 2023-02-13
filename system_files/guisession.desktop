@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Name=GUISession
+Exec=/usr/local/bin/start_gui
+Comment=Minimal GUI Startup
+Type=Application

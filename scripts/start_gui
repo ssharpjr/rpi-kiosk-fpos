@@ -1,9 +1,9 @@
 #!/bin/bash
-xset s off         # don't activate screensaver
-xset -dpms         # disable DPMS (Energy Star) features.
-xset s noblank     # don't blank the video device
+xset s off
+xset -dpms
+xset s noblank
 
-compton -b -d :0 --backend glx --unredir-if-possible --glx-swap-method buffer-age --glx-no-stencil --paint-on-overlay --vsync opengl
+# compton -b -d :0 --backend glx --unredir-if-possible --glx-swap-method buffer-age --glx-no-stencil --paint-on-overlay --vsync opengl
 matchbox-window-manager &
 
-/home/pi/scripts/run_onepageos
+/home/amctech/scripts/run_app

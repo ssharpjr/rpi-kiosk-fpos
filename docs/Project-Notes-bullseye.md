@@ -9,16 +9,17 @@ Debian Bullseye minimal install
 
 Packages to install (*currently not using ```compton```*)
 ```bash
-sudo apt install xserver-xorg x11-xserver-utils xdotool lightdm matchbox-window-manager compton chromium chromium-l10n
+sudo apt install xserver-xorg x11-xserver-utils xdotool lightdm matchbox-window-manager compton chromium
 ```
 
 
 ### LightDM Startup Procedure
+*(Assumes scripts have been copied to ```/usr/local/bin```)*
 
 LightDM calls ```/usr/share/xsessions/guisession.desktop```  
-Which runs ```/home/user/scripts/start_gui```  
-Which runs ```/home/user/scripts/start_app```  
-Which runs ```/home/user/scripts/start_browser```  
+Which runs ```/usr/local/bin/start_gui```  
+Which runs ```/usr/local/bin/start_app```  
+Which runs ```/usr/local/bin/start_browser```  
 Which calls ```/boot/link.txt```, the web page to display
 
 
@@ -30,21 +31,22 @@ Edit ```/etc/lightdm/lightdm.conf```
 
 [Seat:*]
 user-session=guisession
-autologin-user=pi
+autologin-user=runner
 ```
 
-Edit ```/usr/share/xsessions/guisession.desktop```
+Create ```/usr/share/xsessions/guisession.desktop```
 ```bash
 [Desktop Entry]
 Version=1.0
 Name=GUISession
-Exec=/home/pi/scripts/start_gui
+Exec=/usr/local/bin/start_gui
 Comment=Minimal GUI Startup
 Type=Application
 ```
 
 
-### Auto-Login User
+### Create User and Set Auto-Login
+
 
 Create ```/etc/systemd/system/getty@tty1.service.d/override.conf``` file
 ```bash
@@ -55,7 +57,7 @@ Enter the following and save the file
 ```bash
 [Service]
 ExecStart=
-ExecStart=-/sbin/agetty --noissue --autologin myusername %I $TERM
+ExecStart=-/sbin/agetty --noissue --autologin runner %I $TERM
 Type=idle
 ```
 
@@ -64,4 +66,15 @@ Type=idle
 Install ```x11vnc```
 ```bash
 sudo apt install x11vnc -y
+```
+@@TODO WIP
+
+
+### Cron Jobs
+Copy cron job scripts to ```/usr/local/bin```.  
+Add cron jobs to the current user.  
+```bash
+crontab cron/reboot_on_browser_fail.cron
+crontab cron/refresh_browser.cron
+crontab cron/reset_network_on_fail.cron
 ```
