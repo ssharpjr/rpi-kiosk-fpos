@@ -1,1 +1,1 @@
-*/3 * * * * /usr/local/bin/reboot_on_browser_fail
+*/2 * * * * /usr/local/bin/reset_network_on_fail

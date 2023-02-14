@@ -67,16 +67,6 @@ sudo cp scripts/* /usr/local/bin/
 ```
 
 
-### Cron Jobs
-Copy cron job scripts to ```/usr/local/bin```.  
-Add cron jobs to the current user.  
-```bash
-crontab cron/reboot_on_browser_fail.cron
-crontab cron/refresh_browser.cron
-crontab cron/reset_network_on_fail.cron
-```
-
-
 ## GUI Setup
 
 ### LightDM Startup Procedure
@@ -108,4 +98,16 @@ Name=GUISession
 Exec=/usr/local/bin/start_gui
 Comment=Minimal GUI Startup
 Type=Application
+```
+
+
+## Watchdogs
+
+### Cron Jobs
+Copy cron job scripts to ```/usr/local/bin``` *(if needed)*  
+Add cron jobs to the current user.  
+```bash
+crontab cron/reboot_on_browser_fail.cron
+crontab cron/refresh_browser.cron
+crontab cron/reset_network_on_fail.cron
 ```

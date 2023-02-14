@@ -6,4 +6,4 @@ xset s noblank
 # compton -b -d :0 --backend glx --unredir-if-possible --glx-swap-method buffer-age --glx-no-stencil --paint-on-overlay --vsync opengl
 matchbox-window-manager &
 
-/home/amctech/scripts/run_app
+/usr/local/bin/run_app
