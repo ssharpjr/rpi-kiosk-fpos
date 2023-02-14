@@ -60,10 +60,16 @@ sudo apt install x11vnc -y
 *@@TODO WIP*
 
 
-### Copy Scripts
-Copy all scripts to ```/usr/local/bin```
+### Copy Files and Scripts
+Copy all scripts to ```/usr/local/bin```  
 ```bash
 sudo cp scripts/* /usr/local/bin/
+```
+
+Edit and copy ```system_files/boot/link.txt```  
+```bash
+vim system_files/boot/link.txt
+sudo cp system_files/boot/link.txt /boot
 ```
 
 
